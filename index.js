@@ -22,7 +22,7 @@ app.post('/webhook', function (req, res) {
   // we have a simple authentication
   if (REQUIRE_AUTH) {
     if (req.headers['auth-token'] !== AUTH_TOKEN) {
-      return res.status(401).send('Unauthorized')
+      return res.status(401).send('Test Unauthorized')
     }
   }
 
