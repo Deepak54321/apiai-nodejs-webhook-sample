@@ -13,8 +13,7 @@ app.get('/', function (req, res) {
 app.get('/webhook', function (req, res) {
   res.send('You must POST your request')
 })
-
-app.post('/webhook', function (req, res) {
+function Demo (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
   console.log(req.body)
@@ -44,7 +43,8 @@ app.post('/webhook', function (req, res) {
     speech: webhookReply,
     displayText: webhookReply
   })
-})
+}
+app.post('/webhook', Demo);
 
 app.listen(app.get('port'), function () {
   console.log('* Webhook service is listening on port:' + app.get('port'))
