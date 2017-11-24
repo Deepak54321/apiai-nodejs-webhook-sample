@@ -13,7 +13,8 @@ app.get('/', function (req, res) {
 app.get('/webhook', function (req, res) {
   res.send('You must POST your request')
 })
-function demo (req, res) {
+
+app.post('/webhook', function (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
   console.log(req.body)
@@ -21,7 +22,7 @@ function demo (req, res) {
   // we have a simple authentication
   if (REQUIRE_AUTH) {
     if (req.headers['auth-token'] !== AUTH_TOKEN) {
-      return res.status(401).send('Test Unauthorized')
+      return res.status(401).send('Unauthorized')
     }
   }
 
@@ -34,8 +35,8 @@ function demo (req, res) {
   console.log('* Received action -- %s', req.body.result.action)
 
   // parameters are stored in req.body.result.parameters
-  //var userName = req.body.result.parameters['given-name']
-  var webhookReply = 'Hello ' + Deepak + '! Welcome from the webhook.'
+  var userName = req.body.result.parameters['given-name']
+  var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.'
 
   // the most basic response
   res.status(200).json({
@@ -43,8 +44,7 @@ function demo (req, res) {
     speech: webhookReply,
     displayText: webhookReply
   })
-}
-app.post('/webhook', demo);
+})
 
 app.listen(app.get('port'), function () {
   console.log('* Webhook service is listening on port:' + app.get('port'))
